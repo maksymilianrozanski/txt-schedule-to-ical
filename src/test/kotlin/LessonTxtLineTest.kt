@@ -6,7 +6,7 @@ import kotlin.streams.toList
 import kotlin.test.assertFailsWith
 
 
-class TxtLineTest {
+class LessonTxtLineTest {
 
     @Test
     fun stringToStreamTests() {
@@ -36,5 +36,18 @@ class TxtLineTest {
             extractDateFromString(badInput)
         }
         Assert.assertEquals("Bad input", exception.message)
+    }
+
+    @Test
+    fun separateValuesFromTextTest(){
+        val inputLesson = "\t17:30\t19:00\t2h00m\tmgr Pan Nauczyciel \tPlastyka \tWyk\tgr2NS \tF Radom \tEgzamin\tBrak"
+        val lessonTxtLine = LessonTxtLine(inputLesson)
+        Assert.assertEquals("17:30", lessonTxtLine.startTime)
+        Assert.assertEquals("19:00", lessonTxtLine.endTime)
+        Assert.assertEquals("mgr Pan Nauczyciel", lessonTxtLine.lecturer)
+        Assert.assertEquals("Plastyka", lessonTxtLine.lessonTitle)
+        Assert.assertEquals("Wyk", lessonTxtLine.lessonType)
+        Assert.assertEquals("gr2NS", lessonTxtLine.lessonCode)
+        Assert.assertEquals("F Radom", lessonTxtLine.classRoom)
     }
 }

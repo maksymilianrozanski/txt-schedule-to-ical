@@ -1,4 +1,4 @@
-data class Lesson(
+data class LessonICal(
     val date: String,
     val startTime: String,
     val endTime: String,
