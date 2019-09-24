@@ -1,4 +1,4 @@
-data class LessonICal(
+class LessonICal(
     val date: String,
     val startTime: String,
     val endTime: String,
@@ -37,4 +37,20 @@ data class LessonICal(
     fun getEndMinutes(): Int {
         return endTime.substring(3, 5).toInt()
     }
+}
+
+var createLessonICal: (LessonTxtLine) -> LessonICal = {
+    //TODO: create real data stamp and uid
+    LessonICal(
+        date = it.date,
+        startTime = it.startTime,
+        endTime = it.endTime,
+        lecturer = it.lecturer,
+        lessonTitle = it.lessonTitle,
+        classRoom = it.classRoom,
+        lessonCode = it.lessonCode,
+        lessonType = it.lessonType,
+        dtStamp = "20190715T172009Z",
+        uid = "16@1563211209865"
+    )
 }

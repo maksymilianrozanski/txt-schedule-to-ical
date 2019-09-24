@@ -58,4 +58,21 @@ class LessonICalTest {
         val result = lessonICal.getEndMinutes()
         Assert.assertEquals(expected, result)
     }
+
+    @Test
+    fun createLessonICalTest() {
+        val inputLesson = "\t17:30\t19:00\t2h00m\tmgr Pan Nauczyciel \tPlastyka \tWyk\tgr2NS \tF Radom \tEgzamin\tBrak"
+        val lessonTxtLine = LessonTxtLine(inputLesson)
+        lessonTxtLine.date = "2019-10-05"
+
+        val lessonICalCreated = createLessonICal(lessonTxtLine)
+        Assert.assertEquals("2019-10-05", lessonICalCreated.date)
+        Assert.assertEquals("17:30", lessonICalCreated.startTime)
+        Assert.assertEquals("19:00", lessonICalCreated.endTime)
+        Assert.assertEquals("mgr Pan Nauczyciel", lessonICalCreated.lecturer)
+        Assert.assertEquals("Plastyka", lessonICalCreated.lessonTitle)
+        Assert.assertEquals("Wyk", lessonICalCreated.lessonType)
+        Assert.assertEquals("gr2NS", lessonICalCreated.lessonCode)
+        Assert.assertEquals("F Radom", lessonICalCreated.classRoom)
+    }
 }
