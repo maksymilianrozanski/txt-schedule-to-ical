@@ -18,4 +18,7 @@ data class LessonICal(
         return date.substring(5, 7).toInt()
     }
 
+    fun getDay(): Int {
+        return date.substring(8, 10).toInt()
+    }
 }
