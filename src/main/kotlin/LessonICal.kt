@@ -21,4 +21,8 @@ data class LessonICal(
     fun getDay(): Int {
         return date.substring(8, 10).toInt()
     }
+
+    fun getStartHour(): Int {
+        return startTime.substring(0, 2).toInt()
+    }
 }
