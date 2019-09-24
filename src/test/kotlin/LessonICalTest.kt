@@ -16,4 +16,11 @@ class LessonICalTest {
         val result = lessonICal.getYear()
         Assert.assertEquals(expected, result)
     }
+
+    @Test
+    fun getMonthTest() {
+        val expected = 4
+        val result = lessonICal.getMonth()
+        Assert.assertEquals(expected, result)
+    }
 }

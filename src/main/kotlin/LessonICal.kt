@@ -13,4 +13,9 @@ data class LessonICal(
     fun getYear(): Int {
         return date.substring(0, 4).toInt()
     }
+
+    fun getMonth(): Int {
+        return date.substring(5, 7).toInt()
+    }
+
 }
