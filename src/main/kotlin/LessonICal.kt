@@ -25,4 +25,8 @@ data class LessonICal(
     fun getStartHour(): Int {
         return startTime.substring(0, 2).toInt()
     }
+
+    fun getStartMinutes(): Int {
+        return startTime.substring(3, 5).toInt()
+    }
 }
