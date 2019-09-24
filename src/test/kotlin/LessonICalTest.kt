@@ -68,7 +68,7 @@ class LessonICalTest {
         val lessonTxtLine = LessonTxtLine(inputLesson)
         lessonTxtLine.date = "2019-10-05"
 
-        val lessonICalCreated = createLessonICal(lessonTxtLine)
+        val lessonICalCreated = createLessonICal(lessonTxtLine, "20190715T172009Z", "16@1563211209865")
         Assert.assertEquals("2019-10-05", lessonICalCreated.date)
         Assert.assertEquals("17:30", lessonICalCreated.startTime)
         Assert.assertEquals("19:00", lessonICalCreated.endTime)
@@ -77,6 +77,8 @@ class LessonICalTest {
         Assert.assertEquals("Wyk", lessonICalCreated.lessonType)
         Assert.assertEquals("gr2NS", lessonICalCreated.lessonCode)
         Assert.assertEquals("F Radom", lessonICalCreated.classRoom)
+        Assert.assertEquals("20190715T172009Z", lessonICalCreated.dtStamp)
+        Assert.assertEquals("16@1563211209865", lessonICalCreated.uid)
     }
 
     @Test

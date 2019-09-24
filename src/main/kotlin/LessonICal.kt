@@ -42,21 +42,21 @@ class LessonICal(
     }
 }
 
-var createLessonICal: (LessonTxtLine) -> LessonICal = {
-    //TODO: create real data stamp and uid
-    LessonICal(
-        date = it.date,
-        startTime = it.startTime,
-        endTime = it.endTime,
-        lecturer = it.lecturer,
-        lessonTitle = it.lessonTitle,
-        classRoom = it.classRoom,
-        lessonCode = it.lessonCode,
-        lessonType = it.lessonType,
-        dtStamp = "20190715T172009Z",
-        uid = "16@1563211209865"
-    )
-}
+var createLessonICal: (LessonTxtLine, String, String) -> LessonICal =
+    { lesson: LessonTxtLine, dtStamp: String, uid: String ->
+        LessonICal(
+            date = lesson.date,
+            startTime = lesson.startTime,
+            endTime = lesson.endTime,
+            lecturer = lesson.lecturer,
+            lessonTitle = lesson.lessonTitle,
+            classRoom = lesson.classRoom,
+            lessonCode = lesson.lessonCode,
+            lessonType = lesson.lessonType,
+            dtStamp = dtStamp,
+            uid = uid
+        )
+    }
 
 var dateStamp: (GregorianCalendar) -> String = {
     val year = it.get(Calendar.YEAR).toString()
