@@ -102,7 +102,7 @@ var createVEvent: (LessonICal, Clock) -> VEvent = { lesson: LessonICal, clock: C
     val timeZone = registry.getTimeZone("Europe/Warsaw")
     val tz = timeZone.vTimeZone
 
-    val startDate = extractDate(lesson, timeZone).setHourAndMin(lesson,true)
+    val startDate = extractDate(lesson, timeZone).setHourAndMin(lesson, true)
     val endDate = extractDate(lesson, timeZone).setHourAndMin(lesson, false)
 
     val event = VEvent(
@@ -133,17 +133,13 @@ private var extractDate: (LessonICal, TimeZone) -> Calendar = { lesson: LessonIC
 }
 
 var setHourAndMin: Calendar.(lesson: LessonICal, isStart: Boolean) -> Calendar =
-    {
-            lesson: LessonICal,  isStart: Boolean ->
-        var hour = 0
-        var minutes = 0
-        when {
-            isStart -> {
-                hour = lesson.getStartHour(); minutes = lesson.getStartMinutes()
-            }
-            !isStart -> {
-                hour = lesson.getEndHour(); minutes = lesson.getEndMinutes()
-            }
+    { lesson: LessonICal, isStart: Boolean ->
+        val hour: Int
+        val minutes: Int
+        if (isStart) {
+            hour = lesson.getStartHour(); minutes = lesson.getStartMinutes()
+        } else {
+            hour = lesson.getEndHour(); minutes = lesson.getEndMinutes()
         }
         this.set(Calendar.HOUR_OF_DAY, hour)
         this.set(Calendar.MINUTE, minutes)
