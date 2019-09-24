@@ -23,8 +23,9 @@ fun main(args: Array<String>) {
 
     val singleCalendar = SingleCalendar(iCalLessonsList, clock)
     val iCal = singleCalendar.getICal()
-    println("Printing calendar")
-    println(iCal)
+    val iCalRemovedBackSlashes = iCal.replace("\\\\\\", "")
+
+    writeToFile(iCalRemovedBackSlashes)
 
     println("End")
 }
@@ -35,4 +36,9 @@ var getStreamFromFileFunc: (filePath: String) -> Stream<String> = { filePath ->
 
 var isDayNotLesson: (String) -> Boolean = {
     it.startsWith("Data Zajęć:") || it.startsWith("[Zwęż]\tData Zajęć:")
+}
+
+fun writeToFile(text: String) {
+    val path = Paths.get("MySchedule.ical")
+    Files.write(path, text.toByteArray())
 }
