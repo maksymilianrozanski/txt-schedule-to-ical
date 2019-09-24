@@ -105,13 +105,8 @@ var createVEvent: (LessonICal, Clock) -> VEvent = { lesson: LessonICal, clock: C
     val startDate = extractDate(lesson, timeZone).setHourAndMin(lesson, true)
     val endDate = extractDate(lesson, timeZone).setHourAndMin(lesson, false)
 
-    val event = VEvent(
-        DateTime(startDate.time),
-        DateTime(endDate.time), summary(lesson)
-    )
-
+    val event = VEvent(DateTime(startDate.time), DateTime(endDate.time), summary(lesson))
     event.properties.add(tz.timeZoneId)
-
     event.properties
         .add(Description(description(lesson)))
     event.properties.add(Location("św. Filipa 17 Kraków"))
@@ -119,7 +114,6 @@ var createVEvent: (LessonICal, Clock) -> VEvent = { lesson: LessonICal, clock: C
     val uid = Uid()
     uid.value = generateUid(uniqueUidTime(clock))
     event.properties.add(uid)
-
     event
 }
 
