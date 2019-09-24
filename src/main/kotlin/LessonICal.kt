@@ -8,7 +8,7 @@ import net.fortuna.ical4j.model.property.Uid
 import java.time.Clock
 import java.util.*
 
-class LessonICal(
+data class LessonICal(
     val date: String,
     val startTime: String,
     val endTime: String,
@@ -24,6 +24,7 @@ class LessonICal(
         return date.substring(0, 4).toInt()
     }
 
+    // 1-12 format
     fun getMonth(): Int {
         return date.substring(5, 7).toInt()
     }

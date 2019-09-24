@@ -1,9 +1,15 @@
 import org.junit.Assert
 import org.junit.Test
+import org.mockito.Mockito
+import java.time.Clock
+import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.stream.Stream
 
 class SingleCalendarKtTest {
+
+    val calendarMock = Mockito.mock(GregorianCalendar::class.java)
+    val clockMock = Mockito.mock(Clock::class.java)
 
     @Test
     fun createDaysList() {
@@ -41,5 +47,44 @@ class SingleCalendarKtTest {
         Assert.assertEquals(6, daysList[2].dayValues.size)
         Assert.assertEquals(2, daysList[3].dayValues.size)
         Assert.assertEquals(2, daysList[4].dayValues.size)
+    }
+
+    @Test
+    fun lessonsOneDayTest() {
+        val day = SingleDay(
+            dateLine = "Data Zajęć: 2019-10-04 piątek", lessons = listOf(
+                " \t8:00\t9:30\t2h00m\tMr. Smith \tLatin lesson \tCw\tgr17IT \tF Gdańsk \tZaliczenie ocena\tBrak\n",
+                " \t11:20\t14:30\t4h00m\tMrs. Smiths \tHistory \tWyk\tgr17IT \tF Gdynia \tEgzamin\tBrak\n"
+            )
+        )
+
+        val lessonsICal = day.lessonsOneDay("20190715T172009Z", "16@1563211209867")
+        Assert.assertEquals(2, lessonsICal.size)
+        val lessonExpected0 = LessonICal(
+            date = "2019-10-04",
+            startTime = "8:00",
+            endTime = "9:30",
+            lecturer = "Mr. Smith",
+            lessonTitle = "Latin lesson",
+            lessonType = "Cw",
+            lessonCode = "gr17IT",
+            classRoom = "F Gdańsk",
+            dtStamp = "20190715T172009Z",
+            uid = "16@1563211209867"
+        )
+        Assert.assertEquals(lessonExpected0, lessonsICal[0])
+        val lessonExpected1 = LessonICal(
+            date = "2019-10-04",
+            startTime = "11:20",
+            endTime = "14:30",
+            lecturer = "Mrs. Smiths",
+            lessonTitle = "History",
+            lessonType = "Wyk",
+            lessonCode = "gr17IT",
+            classRoom = "F Gdynia",
+            dtStamp = "20190715T172009Z",
+            uid = "16@1563211209867"
+        )
+        Assert.assertEquals(lessonExpected1, lessonsICal[1])
     }
 }

@@ -12,6 +12,20 @@ class SingleDay(dateLine: String, lessons: List<String>) {
         dayValues.add(dateLine)
         dayValues.addAll(lessons)
     }
+
+    var lessonsOneDay: (dtStamp: String, uid: String) -> List<LessonICal> =
+        { dtStamp: String, uid: String ->
+            val date = extractDateFromString(this.dayValues[0])
+            val iCalLessons = arrayListOf<LessonICal>()
+            dayValues.removeAt(0)
+            dayValues.forEach {
+                val lessonTxtLine = LessonTxtLine(it)
+                lessonTxtLine.date = date
+                val iCalLesson = createLessonICal(lessonTxtLine, dtStamp, uid)
+                iCalLessons.add(iCalLesson)
+            }
+            iCalLessons
+        }
 }
 
 fun createDaysList(stream: Stream<String>): List<SingleDay> {
