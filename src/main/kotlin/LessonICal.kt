@@ -81,10 +81,7 @@ var dateStamp: (GregorianCalendar) -> String = {
 }
 
 var lastUidTime: Long = 0
-
-var generateUid: (Long) -> String = {
-    Thread.currentThread().id.toString() + "@" + it.toString()
-}
+var generateUid: (Long) -> String = { "${Thread.currentThread().id}@$it" }
 
 var uniqueUidTime: (Clock) -> Long = {
     var currentTimeInMillis: Long
