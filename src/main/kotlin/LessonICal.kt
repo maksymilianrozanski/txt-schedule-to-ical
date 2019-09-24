@@ -29,4 +29,12 @@ data class LessonICal(
     fun getStartMinutes(): Int {
         return startTime.substring(3, 5).toInt()
     }
+
+    fun getEndHour(): Int {
+        return endTime.substring(0, 2).toInt()
+    }
+
+    fun getEndMinutes(): Int {
+        return endTime.substring(3, 5).toInt()
+    }
 }

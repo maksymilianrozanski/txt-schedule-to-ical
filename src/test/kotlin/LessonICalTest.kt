@@ -32,16 +32,30 @@ class LessonICalTest {
     }
 
     @Test
-    fun getStartHourTest(){
+    fun getStartHourTest() {
         val expected = 17
         val result = lessonICal.getStartHour()
         Assert.assertEquals(expected, result)
     }
 
     @Test
-    fun getStartMinutesTest(){
+    fun getStartMinutesTest() {
         val expected = 0
         val result = lessonICal.getStartMinutes()
+        Assert.assertEquals(expected, result)
+    }
+
+    @Test
+    fun getEndHourTest() {
+        val expected = 18
+        val result = lessonICal.getEndHour()
+        Assert.assertEquals(expected, result)
+    }
+
+    @Test
+    fun getEndMinutesTest() {
+        val expected = 30
+        val result = lessonICal.getEndMinutes()
         Assert.assertEquals(expected, result)
     }
 }
