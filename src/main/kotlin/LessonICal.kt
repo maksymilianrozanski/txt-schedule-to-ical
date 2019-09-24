@@ -75,6 +75,10 @@ var dateStamp: (GregorianCalendar) -> String = {
 
 var lastUidTime: Long = 0
 
+var generateUid: (Long) -> String = {
+    Thread.currentThread().id.toString() + "@" + it.toString()
+}
+
 var uniqueUidTime: (Clock) -> Long = {
     var currentTimeInMillis: Long
     synchronized(LessonICal::class.java) {
