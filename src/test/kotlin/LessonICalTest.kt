@@ -1,5 +1,7 @@
 import org.junit.Assert
 import org.junit.Test
+import org.mockito.Mockito
+import java.util.*
 
 
 class LessonICalTest {
@@ -74,5 +76,33 @@ class LessonICalTest {
         Assert.assertEquals("Wyk", lessonICalCreated.lessonType)
         Assert.assertEquals("gr2NS", lessonICalCreated.lessonCode)
         Assert.assertEquals("F Radom", lessonICalCreated.classRoom)
+    }
+
+    @Test
+    fun generateDateStampTest() {
+        val calendar = Mockito.mock(GregorianCalendar::class.java)
+        Mockito.`when`(calendar.get(Calendar.YEAR)).thenReturn(2019)
+        Mockito.`when`(calendar.get(Calendar.MONTH)).thenReturn(3)  //April (starts from 0)
+        Mockito.`when`(calendar.get(Calendar.DAY_OF_MONTH)).thenReturn(2)
+        Mockito.`when`(calendar.get(Calendar.HOUR_OF_DAY)).thenReturn(4)
+        Mockito.`when`(calendar.get(Calendar.MINUTE)).thenReturn(8)
+        Mockito.`when`(calendar.get(Calendar.SECOND)).thenReturn(2)
+
+        val dateStamp = dateStamp(calendar)
+        Assert.assertEquals("20190402T040802Z", dateStamp)
+    }
+
+    @Test
+    fun generateDateStampTest2() {
+        val calendar = Mockito.mock(GregorianCalendar::class.java)
+        Mockito.`when`(calendar.get(Calendar.YEAR)).thenReturn(2019)
+        Mockito.`when`(calendar.get(Calendar.MONTH)).thenReturn(10)  //November (starts from 0)
+        Mockito.`when`(calendar.get(Calendar.DAY_OF_MONTH)).thenReturn(11)
+        Mockito.`when`(calendar.get(Calendar.HOUR_OF_DAY)).thenReturn(12)
+        Mockito.`when`(calendar.get(Calendar.MINUTE)).thenReturn(13)
+        Mockito.`when`(calendar.get(Calendar.SECOND)).thenReturn(14)
+
+        val dateStamp = dateStamp(calendar)
+        Assert.assertEquals("20191111T121314Z", dateStamp)
     }
 }

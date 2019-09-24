@@ -1,3 +1,5 @@
+import java.util.*
+
 class LessonICal(
     val date: String,
     val startTime: String,
@@ -53,4 +55,19 @@ var createLessonICal: (LessonTxtLine) -> LessonICal = {
         dtStamp = "20190715T172009Z",
         uid = "16@1563211209865"
     )
+}
+
+var dateStamp: (GregorianCalendar) -> String = {
+    val year = it.get(Calendar.YEAR).toString()
+    var month = (it.get(Calendar.MONTH) + 1).toString()
+    if (month.length < 2) month = "0$month"
+    var day = it.get(Calendar.DAY_OF_MONTH).toString()
+    if (day.length < 2) day = "0$day"
+    var hour = it.get(Calendar.HOUR_OF_DAY).toString()
+    if (hour.length < 2) hour = "0$hour"
+    var minutes = it.get(Calendar.MINUTE).toString()
+    if (minutes.length < 2) minutes = "0$minutes"
+    var seconds = it.get(Calendar.SECOND).toString()
+    if (seconds.length < 2) seconds = "0$seconds"
+    year + month + day + "T" + hour + minutes + seconds + "Z"
 }
