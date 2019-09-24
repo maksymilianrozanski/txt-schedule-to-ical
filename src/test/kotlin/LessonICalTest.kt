@@ -13,6 +13,12 @@ class LessonICalTest {
         "16@1563211209865"
     )
 
+    private val lessonICal2 = LessonICal(
+        "2019-04-05", "7:00", "8:30", "Mr. Smith",
+        "Physics", "Lab", "gr2/IT", "London", "20190715T172009Z",
+        "16@1563211209865"
+    )
+
     @Test
     fun getYearTest() {
         val expected = 2019
@@ -42,9 +48,23 @@ class LessonICalTest {
     }
 
     @Test
+    fun getStartHourSingleDigitTest() {
+        val expected = 7
+        val result = lessonICal2.getStartHour()
+        Assert.assertEquals(expected, result)
+    }
+
+    @Test
     fun getStartMinutesTest() {
         val expected = 0
         val result = lessonICal.getStartMinutes()
+        Assert.assertEquals(expected, result)
+    }
+
+    @Test
+    fun getStartMinutesTest2() {
+        val expected = 0
+        val result = lessonICal2.getStartMinutes()
         Assert.assertEquals(expected, result)
     }
 
@@ -56,9 +76,23 @@ class LessonICalTest {
     }
 
     @Test
+    fun getEndHourSingleDigitTest() {
+        val expected = 8
+        val result = lessonICal2.getEndHour()
+        Assert.assertEquals(expected, result)
+    }
+
+    @Test
     fun getEndMinutesTest() {
         val expected = 30
         val result = lessonICal.getEndMinutes()
+        Assert.assertEquals(expected, result)
+    }
+
+    @Test
+    fun getEndMinutesTest2() {
+        val expected = 30
+        val result = lessonICal2.getEndMinutes()
         Assert.assertEquals(expected, result)
     }
 

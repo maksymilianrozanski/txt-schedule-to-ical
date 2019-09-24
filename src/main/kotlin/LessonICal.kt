@@ -34,19 +34,31 @@ data class LessonICal(
     }
 
     fun getStartHour(): Int {
-        return startTime.substring(0, 2).toInt()
+        return if (startTime.length == 5)
+            startTime.substring(0, 2).toInt()
+        else
+            startTime.substring(0, 1).toInt()
     }
 
     fun getStartMinutes(): Int {
-        return startTime.substring(3, 5).toInt()
+        return if (startTime.length == 5)
+            startTime.substring(3, 5).toInt()
+        else
+            startTime.substring(2, 4).toInt()
     }
 
     fun getEndHour(): Int {
-        return endTime.substring(0, 2).toInt()
+        return if (endTime.length == 5)
+            endTime.substring(0, 2).toInt()
+        else
+            endTime.substring(0, 1).toInt()
     }
 
     fun getEndMinutes(): Int {
-        return endTime.substring(3, 5).toInt()
+        return if (endTime.length == 5)
+            endTime.substring(3, 5).toInt()
+        else
+            endTime.substring(2, 4).toInt()
     }
 }
 
@@ -140,4 +152,4 @@ var setHourAndMin: Calendar.(lesson: LessonICal, isStart: Boolean) -> Calendar =
     }
 
 var summary: (LessonICal) -> String = { "${it.lessonType} ${it.lessonTitle}" }
-var description: (LessonICal) -> String = { "${it.classRoom}, ${it.lecturer}, ${it.lessonCode}" }
+var description: (LessonICal) -> String = { it.classRoom + "\\, " + it.lecturer + "\\, " + it.lessonCode }

@@ -1,7 +1,24 @@
+import net.fortuna.ical4j.model.Calendar
+import net.fortuna.ical4j.model.property.CalScale
+import net.fortuna.ical4j.model.property.ProdId
+import java.time.Clock
 import java.util.stream.Stream
 
-class SingleCalendar {
+class SingleCalendar(var lessons: List<LessonICal>, var clock: Clock) {
 
+    private var iCalCalendar: Calendar = Calendar()
+
+    init {
+        iCalCalendar.properties.add(ProdId("--schedule--"))
+        iCalCalendar.properties.add(CalScale.GREGORIAN)
+        lessons.forEach { lesson ->
+            iCalCalendar.components.add(createVEvent(lesson, clock))
+        }
+    }
+
+    fun getICal(): String {
+        return iCalCalendar.toString()
+    }
 }
 
 class SingleDay(dateLine: String, lessons: List<String>) {
