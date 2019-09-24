@@ -15,4 +15,3 @@ var getStreamFromFileFunc: (String) -> Stream<String> = { filePath ->
 var isDayNotLesson: (String) -> Boolean = {
     it.startsWith("Data Zajęć:") || it.startsWith("[Zwęż]\tData Zajęć:")
 }
-
