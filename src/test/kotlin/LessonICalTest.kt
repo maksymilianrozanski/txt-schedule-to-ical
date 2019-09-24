@@ -1,6 +1,7 @@
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
+import java.time.Clock
 import java.util.*
 
 
@@ -104,5 +105,49 @@ class LessonICalTest {
 
         val dateStamp = dateStamp(calendar)
         Assert.assertEquals("20191111T121314Z", dateStamp)
+    }
+
+    @Test
+    fun uniqueUidTimeTest() {
+        val clockMock = Mockito.mock(Clock::class.java)
+        val mockedTime = 10L
+        Mockito.`when`(clockMock.millis()).thenReturn(mockedTime)
+
+        lastUidTime = 8L
+        val firstObtainedTime = uniqueUidTime(clockMock)
+        Assert.assertEquals(10L, firstObtainedTime)
+
+        val secondObtainedTime = uniqueUidTime(clockMock)
+        Assert.assertEquals(11L, secondObtainedTime)
+    }
+
+    @Test
+    fun uniqueUidTimeTest2() {
+        val clockMock = Mockito.mock(Clock::class.java)
+        Mockito.`when`(clockMock.millis()).thenReturn(10L)
+
+        lastUidTime = 8L
+        val firstObtainedTime = uniqueUidTime(clockMock)
+        Assert.assertEquals(10L, firstObtainedTime)
+
+        Mockito.`when`(clockMock.millis()).thenReturn(11L)
+
+        val secondObtainedTime = uniqueUidTime(clockMock)
+        Assert.assertEquals(11L, secondObtainedTime)
+    }
+
+    @Test
+    fun uniqueUidTimeTest3() {
+        val clockMock = Mockito.mock(Clock::class.java)
+        Mockito.`when`(clockMock.millis()).thenReturn(10L)
+
+        lastUidTime = 8L
+        val firstObtainedTime = uniqueUidTime(clockMock)
+        Assert.assertEquals(10L, firstObtainedTime)
+
+        Mockito.`when`(clockMock.millis()).thenReturn(12L)
+
+        val secondObtainedTime = uniqueUidTime(clockMock)
+        Assert.assertEquals(12L, secondObtainedTime)
     }
 }

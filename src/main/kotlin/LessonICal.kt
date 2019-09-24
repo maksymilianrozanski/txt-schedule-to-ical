@@ -1,3 +1,4 @@
+import java.time.Clock
 import java.util.*
 
 class LessonICal(
@@ -70,4 +71,17 @@ var dateStamp: (GregorianCalendar) -> String = {
     var seconds = it.get(Calendar.SECOND).toString()
     if (seconds.length < 2) seconds = "0$seconds"
     year + month + day + "T" + hour + minutes + seconds + "Z"
+}
+
+var lastUidTime: Long = 0
+
+var uniqueUidTime: (Clock) -> Long = {
+    var currentTimeInMillis: Long
+    synchronized(LessonICal::class.java) {
+        currentTimeInMillis = it.millis()
+        if (currentTimeInMillis < lastUidTime) currentTimeInMillis = lastUidTime
+        if (currentTimeInMillis - lastUidTime < 1) currentTimeInMillis += 1
+        lastUidTime = currentTimeInMillis
+    }
+    currentTimeInMillis
 }
