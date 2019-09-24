@@ -4,12 +4,25 @@ import java.nio.file.Paths
 import java.time.Clock
 import java.util.*
 import java.util.stream.Stream
+import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     val calendar = GregorianCalendar()
     val clock = Clock.systemUTC()
 
-    val stream: Stream<String> = getStreamFromFileFunc("I:\\java\\harm3sem\\src\\main\\resources\\schedule.txt")
+    println("Please enter input file path.")
+    val scanner = Scanner(System.`in`)
+    val txtFilePath: String = scanner.nextLine()
+    println(txtFilePath)
+
+//    "I:\\java\\harm3sem\\src\\main\\resources\\schedule.txt"
+    val stream: Stream<String>
+    try {
+        stream = getStreamFromFileFunc(txtFilePath)
+    } catch (e: java.nio.file.NoSuchFileException) {
+        println("File not found")
+        exitProcess(1)
+    }
     val daysList: List<SingleDay> = createDaysList(stream)
     val iCalLessonsList = arrayListOf<LessonICal>()
     daysList.forEach {
@@ -27,7 +40,7 @@ fun main(args: Array<String>) {
 
     writeToFile(iCalRemovedBackSlashes)
 
-    println("End")
+    println("iCal file created successfully.")
 }
 
 var getStreamFromFileFunc: (filePath: String) -> Stream<String> = { filePath ->
