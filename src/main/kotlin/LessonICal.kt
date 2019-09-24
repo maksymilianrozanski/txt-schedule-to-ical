@@ -102,11 +102,8 @@ var createVEvent: (LessonICal, Clock) -> VEvent = { lesson: LessonICal, clock: C
     val timeZone = registry.getTimeZone("Europe/Warsaw")
     val tz = timeZone.vTimeZone
 
-    var startDate = extractDate(lesson, timeZone)
-    startDate = addTimeToCalendar(lesson, startDate, true)
-
-    var endDate = extractDate(lesson, timeZone)
-    endDate = addTimeToCalendar(lesson, endDate, false)
+    val startDate = extractDate(lesson, timeZone).setHourAndMin(lesson,true)
+    val endDate = extractDate(lesson, timeZone).setHourAndMin(lesson, false)
 
     val event = VEvent(
         DateTime(startDate.time),
@@ -135,22 +132,23 @@ private var extractDate: (LessonICal, TimeZone) -> Calendar = { lesson: LessonIC
     date
 }
 
-var addTimeToCalendar: (LessonICal, Calendar, Boolean) -> Calendar =
-    { lesson: LessonICal, calendar: Calendar, start: Boolean ->
-        when (start) {
-            true -> {
-                calendar.set(Calendar.HOUR_OF_DAY, lesson.getStartHour())
-                calendar.set(Calendar.MINUTE, lesson.getStartMinutes())
-                calendar.set(Calendar.SECOND, 0)
-                calendar
+var setHourAndMin: Calendar.(lesson: LessonICal, isStart: Boolean) -> Calendar =
+    {
+            lesson: LessonICal,  isStart: Boolean ->
+        var hour = 0
+        var minutes = 0
+        when {
+            isStart -> {
+                hour = lesson.getStartHour(); minutes = lesson.getStartMinutes()
             }
-            false -> {
-                calendar.set(Calendar.HOUR_OF_DAY, lesson.getEndHour())
-                calendar.set(Calendar.MINUTE, lesson.getEndMinutes())
-                calendar.set(Calendar.SECOND, 0)
-                calendar
+            !isStart -> {
+                hour = lesson.getEndHour(); minutes = lesson.getEndMinutes()
             }
         }
+        this.set(Calendar.HOUR_OF_DAY, hour)
+        this.set(Calendar.MINUTE, minutes)
+        this.set(Calendar.SECOND, 0)
+        this
     }
 
 var summary: (LessonICal) -> String = { "${it.lessonType} ${it.lessonTitle}" }

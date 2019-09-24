@@ -155,19 +155,17 @@ class LessonICalTest {
 
     @Test
     fun addStartTimeToCalendarTest() {
-        val initialCalendar = GregorianCalendar()
-        val resultCalendar = addTimeToCalendar(lessonICal, initialCalendar, true)
-        Assert.assertEquals(17, resultCalendar.get(Calendar.HOUR_OF_DAY))
-        Assert.assertEquals(0, resultCalendar.get(Calendar.MINUTE))
-        Assert.assertEquals(0, resultCalendar.get(Calendar.SECOND))
+        val result = GregorianCalendar().setHourAndMin(lessonICal, true)
+        Assert.assertEquals(17, result.get(Calendar.HOUR_OF_DAY))
+        Assert.assertEquals(0, result.get(Calendar.MINUTE))
+        Assert.assertEquals(0, result.get(Calendar.SECOND))
     }
 
     @Test
     fun addEndTimeToCalendarTest() {
-        val initialCalendar = GregorianCalendar()
-        val resultCalendar = addTimeToCalendar(lessonICal, initialCalendar, false)
-        Assert.assertEquals(18, resultCalendar.get(Calendar.HOUR_OF_DAY))
-        Assert.assertEquals(30, resultCalendar.get(Calendar.MINUTE))
-        Assert.assertEquals(0, resultCalendar.get(Calendar.SECOND))
+        val result = GregorianCalendar().setHourAndMin(lessonICal, false)
+        Assert.assertEquals(18, result.get(Calendar.HOUR_OF_DAY))
+        Assert.assertEquals(30, result.get(Calendar.MINUTE))
+        Assert.assertEquals(0, result.get(Calendar.SECOND))
     }
 }
