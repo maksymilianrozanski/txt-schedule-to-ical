@@ -9,4 +9,8 @@ data class LessonICal(
     val classRoom: String,
     val dtStamp: String,
     val uid: String
-)
+) {
+    fun getYear(): Int {
+        return date.substring(0, 4).toInt()
+    }
+}
