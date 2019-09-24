@@ -1,3 +1,10 @@
+import net.fortuna.ical4j.model.DateTime
+import net.fortuna.ical4j.model.TimeZone
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory
+import net.fortuna.ical4j.model.component.VEvent
+import net.fortuna.ical4j.model.property.Description
+import net.fortuna.ical4j.model.property.Location
+import net.fortuna.ical4j.model.property.Uid
 import java.time.Clock
 import java.util.*
 
@@ -89,3 +96,62 @@ var uniqueUidTime: (Clock) -> Long = {
     }
     currentTimeInMillis
 }
+
+var createVEvent: (LessonICal, Clock) -> VEvent = { lesson: LessonICal, clock: Clock ->
+    val registry = TimeZoneRegistryFactory.getInstance().createRegistry()
+    val timeZone = registry.getTimeZone("Europe/Warsaw")
+    val tz = timeZone.vTimeZone
+
+    var startDate = extractDate(lesson, timeZone)
+    startDate = addTimeToCalendar(lesson, startDate, true)
+
+    var endDate = extractDate(lesson, timeZone)
+    endDate = addTimeToCalendar(lesson, endDate, false)
+
+    val event = VEvent(
+        DateTime(startDate.time),
+        DateTime(endDate.time), summary(lesson)
+    )
+
+    event.properties.add(tz.timeZoneId)
+
+    event.properties
+        .add(Description(description(lesson)))
+    event.properties.add(Location("św. Filipa 17 Kraków"))
+
+    val uid = Uid()
+    uid.value = generateUid(uniqueUidTime(clock))
+    event.properties.add(uid)
+
+    event
+}
+
+private var extractDate: (LessonICal, TimeZone) -> Calendar = { lesson: LessonICal, timeZone: TimeZone ->
+    val date = GregorianCalendar()
+    date.timeZone = timeZone
+    date.set(Calendar.MONTH, lesson.getMonth())
+    date.set(Calendar.DAY_OF_MONTH, lesson.getDay())
+    date.set(Calendar.YEAR, lesson.getYear())
+    date
+}
+
+var addTimeToCalendar: (LessonICal, Calendar, Boolean) -> Calendar =
+    { lesson: LessonICal, calendar: Calendar, start: Boolean ->
+        when (start) {
+            true -> {
+                calendar.set(Calendar.HOUR_OF_DAY, lesson.getStartHour())
+                calendar.set(Calendar.MINUTE, lesson.getStartMinutes())
+                calendar.set(Calendar.SECOND, 0)
+                calendar
+            }
+            false -> {
+                calendar.set(Calendar.HOUR_OF_DAY, lesson.getEndHour())
+                calendar.set(Calendar.MINUTE, lesson.getEndMinutes())
+                calendar.set(Calendar.SECOND, 0)
+                calendar
+            }
+        }
+    }
+
+var summary: (LessonICal) -> String = { "${it.lessonType} ${it.lessonTitle}" }
+var description: (LessonICal) -> String = { "${it.classRoom}, ${it.lecturer}, ${it.lessonCode}" }
