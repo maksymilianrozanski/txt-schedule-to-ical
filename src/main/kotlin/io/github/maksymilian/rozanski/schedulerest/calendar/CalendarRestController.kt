@@ -27,7 +27,6 @@ class CalendarRestController {
 
     @PostMapping("/cal")
     fun getCalendar(@RequestBody string: String): ResponseEntity<Resource> {
-        //TODO: fix bad month values in output (+1 higher)
         val stream: Stream<String> = string.lines().stream()
         val resource = ByteArrayResource(generateICalSchedule(stream, calendar, clock).toByteArray())
         return ResponseEntity.ok().contentLength(resource.contentLength())

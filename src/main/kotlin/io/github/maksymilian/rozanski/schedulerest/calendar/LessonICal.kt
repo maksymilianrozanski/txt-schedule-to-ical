@@ -26,9 +26,9 @@ data class LessonICal(
         return date.substring(0, 4).toInt()
     }
 
-    // 1-12 format
+    // 0-11 format
     fun getMonth(): Int {
-        return date.substring(5, 7).toInt()
+        return date.substring(5, 7).toInt() -1
     }
 
     fun getDay(): Int {

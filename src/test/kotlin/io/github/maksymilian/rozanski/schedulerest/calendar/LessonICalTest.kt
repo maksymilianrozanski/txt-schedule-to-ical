@@ -29,7 +29,7 @@ class LessonICalTest {
 
     @Test
     fun getMonthTest() {
-        val expected = 4
+        val expected = 3
         val result = lessonICal.getMonth()
         Assert.assertEquals(expected, result)
     }
