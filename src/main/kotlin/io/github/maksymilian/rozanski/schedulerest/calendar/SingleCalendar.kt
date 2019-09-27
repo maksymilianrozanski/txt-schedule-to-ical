@@ -5,7 +5,7 @@ import net.fortuna.ical4j.model.property.ProdId
 import java.time.Clock
 import java.util.stream.Stream
 
-class SingleCalendar(var lessons: List<LessonICal>, var clock: Clock) {
+class SingleCalendar(lessons: List<LessonICal>, private var clock: Clock) {
 
     private var iCalCalendar: net.fortuna.ical4j.model.Calendar = net.fortuna.ical4j.model.Calendar()
 

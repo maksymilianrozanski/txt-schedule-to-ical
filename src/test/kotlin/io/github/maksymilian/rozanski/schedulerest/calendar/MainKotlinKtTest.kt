@@ -1,3 +1,5 @@
+package io.github.maksymilian.rozanski.schedulerest.calendar
+
 import io.github.maksymilian.rozanski.schedulerest.calendar.isDayNotLesson
 import org.junit.Assert
 import org.junit.Test

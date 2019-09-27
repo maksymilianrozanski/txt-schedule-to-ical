@@ -1,4 +1,5 @@
-import io.github.maksymilian.rozanski.schedulerest.calendar.*
+package io.github.maksymilian.rozanski.schedulerest.calendar
+
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito

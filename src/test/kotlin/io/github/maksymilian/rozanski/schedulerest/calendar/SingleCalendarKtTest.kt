@@ -1,19 +1,10 @@
-
-import io.github.maksymilian.rozanski.schedulerest.calendar.LessonICal
-import io.github.maksymilian.rozanski.schedulerest.calendar.SingleDay
-import io.github.maksymilian.rozanski.schedulerest.calendar.createDaysList
+package io.github.maksymilian.rozanski.schedulerest.calendar
 import org.junit.Assert
 import org.junit.Test
-import org.mockito.Mockito
-import java.time.Clock
-import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.stream.Stream
 
 class SingleCalendarKtTest {
-
-    val calendarMock = Mockito.mock(GregorianCalendar::class.java)
-    val clockMock = Mockito.mock(Clock::class.java)
 
     @Test
     fun createDaysListTest() {

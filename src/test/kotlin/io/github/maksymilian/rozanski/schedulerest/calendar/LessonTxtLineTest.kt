@@ -1,3 +1,5 @@
+package io.github.maksymilian.rozanski.schedulerest.calendar
+
 import io.github.maksymilian.rozanski.schedulerest.calendar.LessonTxtLine
 import io.github.maksymilian.rozanski.schedulerest.calendar.extractDateFromString
 import io.github.maksymilian.rozanski.schedulerest.calendar.lineToStream
