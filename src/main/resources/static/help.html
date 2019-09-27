@@ -9,8 +9,7 @@ Zaliczenie ocena Brak"<br>
 4. Przejść w konsoli do folderu gdzie zapisany jest plik txt z harmonogramem.<br>
 5. Wkleić uzupełniając nazwy plików, unikać spacji itp. w nazwach plików:<br>
 <code>
-    curl -X POST -H "Content-Type: text/plain" --data-binary "@
-    <span style="color: #3d7fe2;">NAZWA_PLIKU_Z_HARMONOGRAMEM</span>.txt"
+    curl -X POST -H "Content-Type: text/plain" --data-binary "@<span style="color: #3d7fe2;">NAZWA_PLIKU_Z_HARMONOGRAMEM</span>.txt"
     https://wsei-schedule.herokuapp.com/api/cal -o <span style="color: #3d7fe2;">NAZWA_PLIKU_GENEROWANEGO</span>.ical
     --ssl-no-revoke
 </code>
