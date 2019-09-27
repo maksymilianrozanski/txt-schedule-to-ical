@@ -17,11 +17,8 @@ class CalendarRestController {
     val clock = Clock.systemUTC()
 
     @GetMapping("/test")
-    fun getHelloWorld(): ResponseEntity<String> {
-        val body = "Hello World!!"
-        return ResponseEntity.ok().contentLength(body.length.toLong())
-            .contentType(MediaType.parseMediaType("application/octet-stream"))
-            .body(body)
+    fun getHelloWorld(): String {
+        return "Hello World!!"
     }
 
 
