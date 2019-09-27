@@ -11,16 +11,16 @@ import java.time.Clock
 import java.util.*
 
 data class LessonICal(
-        val date: String,
-        val startTime: String,
-        val endTime: String,
-        val lecturer: String,
-        val lessonTitle: String,
-        val lessonType: String,
-        val lessonCode: String,
-        val classRoom: String,
-        val dtStamp: String,
-        val uid: String
+    val date: String,
+    val startTime: String,
+    val endTime: String,
+    val lecturer: String,
+    val lessonTitle: String,
+    val lessonType: String,
+    val lessonCode: String,
+    val classRoom: String,
+    val dtStamp: String,
+    val uid: String
 ) {
     fun getYear(): Int {
         return date.substring(0, 4).toInt()
@@ -28,7 +28,7 @@ data class LessonICal(
 
     // 0-11 format
     fun getMonth(): Int {
-        return date.substring(5, 7).toInt() -1
+        return date.substring(5, 7).toInt() - 1
     }
 
     fun getDay(): Int {
@@ -65,20 +65,20 @@ data class LessonICal(
 }
 
 var createLessonICal: (LessonTxtLine, String, String) -> LessonICal =
-        { lesson: LessonTxtLine, dtStamp: String, uid: String ->
-            LessonICal(
-                    date = lesson.date,
-                    startTime = lesson.startTime,
-                    endTime = lesson.endTime,
-                    lecturer = lesson.lecturer,
-                    lessonTitle = lesson.lessonTitle,
-                    classRoom = lesson.classRoom,
-                    lessonCode = lesson.lessonCode,
-                    lessonType = lesson.lessonType,
-                    dtStamp = dtStamp,
-                    uid = uid
-            )
-        }
+    { lesson: LessonTxtLine, dtStamp: String, uid: String ->
+        LessonICal(
+            date = lesson.date,
+            startTime = lesson.startTime,
+            endTime = lesson.endTime,
+            lecturer = lesson.lecturer,
+            lessonTitle = lesson.lessonTitle,
+            classRoom = lesson.classRoom,
+            lessonCode = lesson.lessonCode,
+            lessonType = lesson.lessonType,
+            dtStamp = dtStamp,
+            uid = uid
+        )
+    }
 
 var dateStamp: (GregorianCalendar) -> String = {
     val year = it.get(Calendar.YEAR).toString()
@@ -96,7 +96,8 @@ var dateStamp: (GregorianCalendar) -> String = {
 }
 
 var lastUidTime: Long = 0
-var generateUid: (Long) -> String = { "${Thread.currentThread().id}@$it" }
+
+var generateUid: (Clock) -> String = { "${Thread.currentThread().id}@${uniqueUidTime(it)}" }
 
 var uniqueUidTime: (Clock) -> Long = {
     var currentTimeInMillis: Long
@@ -120,11 +121,11 @@ var createVEvent: (LessonICal, Clock) -> VEvent = { lesson: LessonICal, clock: C
     val event = VEvent(DateTime(startDate.time), DateTime(endDate.time), summary(lesson))
     event.properties.add(tz.timeZoneId)
     event.properties
-            .add(Description(description(lesson)))
+        .add(Description(description(lesson)))
     event.properties.add(Location("św. Filipa 17 Kraków"))
 
     val uid = Uid()
-    uid.value = generateUid(uniqueUidTime(clock))
+    uid.value = generateUid(clock)
     event.properties.add(uid)
     event
 }
@@ -139,19 +140,19 @@ private var extractDate: (LessonICal, TimeZone) -> Calendar = { lesson: LessonIC
 }
 
 var setHourAndMin: Calendar.(lesson: LessonICal, isStart: Boolean) -> Calendar =
-        { lesson: LessonICal, isStart: Boolean ->
-            val hour: Int
-            val minutes: Int
-            if (isStart) {
-                hour = lesson.getStartHour(); minutes = lesson.getStartMinutes()
-            } else {
-                hour = lesson.getEndHour(); minutes = lesson.getEndMinutes()
-            }
-            this.set(Calendar.HOUR_OF_DAY, hour)
-            this.set(Calendar.MINUTE, minutes)
-            this.set(Calendar.SECOND, 0)
-            this
+    { lesson: LessonICal, isStart: Boolean ->
+        val hour: Int
+        val minutes: Int
+        if (isStart) {
+            hour = lesson.getStartHour(); minutes = lesson.getStartMinutes()
+        } else {
+            hour = lesson.getEndHour(); minutes = lesson.getEndMinutes()
         }
+        this.set(Calendar.HOUR_OF_DAY, hour)
+        this.set(Calendar.MINUTE, minutes)
+        this.set(Calendar.SECOND, 0)
+        this
+    }
 
 var summary: (LessonICal) -> String = { "${it.lessonType} ${it.lessonTitle}" }
 var description: (LessonICal) -> String = { it.classRoom + "\\, " + it.lecturer + "\\, " + it.lessonCode }

@@ -39,7 +39,7 @@ fun generateICalSchedule(stream: Stream<String>, calendar: GregorianCalendar, cl
         iCalLessonsList.addAll(
             it.lessonsOneDay(
                 dateStamp(calendar),
-                generateUid(uniqueUidTime(clock))
+                generateUid(clock)
             )
         )
     }
