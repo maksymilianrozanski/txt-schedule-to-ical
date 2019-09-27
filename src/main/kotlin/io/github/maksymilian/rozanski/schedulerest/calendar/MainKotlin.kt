@@ -46,7 +46,7 @@ fun generateICalSchedule(stream: Stream<String>, calendar: GregorianCalendar, cl
 
     val singleCalendar = SingleCalendar(iCalLessonsList, clock)
     val iCal = singleCalendar.getICal()
-    return iCal.replace("\\\\\\", "")
+    return iCal.replace("\\", "")
 }
 
 var getStreamFromFileFunc: (filePath: String) -> Stream<String> = { filePath ->

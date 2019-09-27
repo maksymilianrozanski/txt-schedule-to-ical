@@ -155,4 +155,4 @@ var setHourAndMin: Calendar.(lesson: LessonICal, isStart: Boolean) -> Calendar =
     }
 
 var summary: (LessonICal) -> String = { "${it.lessonType} ${it.lessonTitle}" }
-var description: (LessonICal) -> String = { it.classRoom + "\\, " + it.lecturer + "\\, " + it.lessonCode }
+var description: (LessonICal) -> String = { it.classRoom + ", " + it.lecturer + ", " + it.lessonCode }
