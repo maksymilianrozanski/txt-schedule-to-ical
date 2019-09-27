@@ -5,11 +5,18 @@ Autor nie ponosi odpowiedzialności za błędy itp.<br>
 wierszu).<br>
 2. Zapisać do pliku txt (powinno zaczynać się np. "Data Zajęć: 2019-10-04 piątek", kończyć np. " (...)F Toronto
 Zaliczenie ocena Brak"<br>
-3. Jeżeli nie jest zainstalowany to zainstalować curl (lub inny klient http np. postman)<br>
+3. Jeżeli nie jest zainstalowany to zainstalować curl (lub inny klient http np. Postman)<br>
 4. Przejść w konsoli do folderu gdzie zapisany jest plik txt z harmonogramem.<br>
-5. Wkleić uzupełniając nazwy plików, unikać spacji itp.:<br>
-curl -X POST -H "Content-Type: text/plain" --data-binary "@TU_NAZWA_PLIKU_Z_HARMONOGRAMEM.txt"
-https://wsei-schedule.herokuapp.com/api/cal -o NAZWA_PLIKU_GENEROWANEGO.ical --ssl-no-revoke<br>
-6. W folderze powinien pojawić się plik .ical, JEŻELI IMPORTUJECIE DO KALENDARZA GOOGLE, polecam stworzyć nowy
-kalendarz, nie importować do głównego.<br>
+5. Wkleić uzupełniając nazwy plików, unikać spacji itp. w nazwach plików:<br>
+<code>
+    curl -X POST -H "Content-Type: text/plain" --data-binary "@
+    <span style="color: #3d7fe2;">NAZWA_PLIKU_Z_HARMONOGRAMEM</span>.txt"
+    https://wsei-schedule.herokuapp.com/api/cal -o <span style="color: #3d7fe2;">NAZWA_PLIKU_GENEROWANEGO</span>.ical
+    --ssl-no-revoke
+</code>
+<br>
+6. W folderze powinien pojawić się plik .ical, <span style="color: orangered;">
+    jeżeli importujecie do kalendarza Google</span>, polecam stworzyć nowy
+kalendarz, nie importować do głównego.
+<br>
 </html>
