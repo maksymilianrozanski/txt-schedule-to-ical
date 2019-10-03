@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="help.css">
     <title></title>
 </head>
-<body>
+<body onload="init()">
 Aplikacja generuje plik kalendarza ical z pliku txt z harmonogramem.<br>
 Autor nie ponosi odpowiedzialności za błędy itp.<br>
 1. Skopiować z Wirtualnego Dziekanatu harmonogram z zakładki "Mój plan" (nie "Plany grup"). (zaznaczając myszką od
@@ -30,10 +30,13 @@ Lub wklej tutaj:
 <br>
 
 <label>
-    <input type="text" id="editText" placeholder="Data Zajęć: 2019-10-04 piątek ...">
+    Upload file:
+    <input type="file" id="fileInput" accept="txt"/>
+    <pre id="fileContent"></pre>
 </label>
+
 <br>
-<button type="button" onclick="createICal()" id="123">Generuj ical</button>
+<!--<button type="button" onclick="createICal()" id="123">Generuj ical</button>-->
 </body>
 <script src="help.js"></script>
 </html>
