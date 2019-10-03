@@ -25,8 +25,13 @@ class CalendarRestController {
     @PostMapping("/cal")
     fun getCalendar(@RequestBody string: String): ResponseEntity<Resource> {
         val stream: Stream<String> = string.lines().stream()
-        val resource = ByteArrayResource(generateICalSchedule(stream, calendar, clock).toByteArray())
+        val resource: ByteArrayResource
+        try {
+            resource = ByteArrayResource(generateICalSchedule(stream, calendar, clock).toByteArray())
+        } catch (e: Exception) {
+            return ResponseEntity.badRequest().build()
+        }
         return ResponseEntity.ok().contentLength(resource.contentLength())
-            .contentType(MediaType.parseMediaType("application/octet-stream")).body(resource)
+                .contentType(MediaType.parseMediaType("application/octet-stream")).body(resource)
     }
 }
