@@ -21,7 +21,6 @@ class CalendarRestController {
         return "Hello World!!"
     }
 
-
     @PostMapping("/cal")
     fun getCalendar(@RequestBody string: String): ResponseEntity<Resource> {
         val stream: Stream<String> = string.lines().stream()
