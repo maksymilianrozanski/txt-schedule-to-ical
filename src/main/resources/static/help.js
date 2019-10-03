@@ -1,3 +1,6 @@
+const hostUrl = window.location.host;
+const currentProtocol = window.location.protocol;
+
 function init() {
     document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
 }
@@ -15,7 +18,7 @@ function handleFileLoad(event) {
 
 function generateCalendar(inputText) {
     let request = new XMLHttpRequest();
-    request.open("POST", "http://localhost:8080/api/cal");
+    request.open("POST", currentProtocol +"//"+ hostUrl + "/api/cal");
     request.setRequestHeader("Content-Type", "text/plain");
     request.send(inputText);
     request.onload = function () {
