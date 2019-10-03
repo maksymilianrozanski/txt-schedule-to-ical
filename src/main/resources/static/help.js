@@ -19,8 +19,22 @@ function generateCalendar(inputText) {
     request.setRequestHeader("Content-Type", "text/plain");
     request.send(inputText);
     request.onload = function () {
-        download("generatedSchedule.ical", request.responseText);
-    }
+        if (request.status === 200) {
+            download("generatedSchedule.ical", request.responseText);
+            document.getElementById('result').innerHTML = "Success";
+            document.getElementById('result').style.color = "Green";
+        } else {
+            setError();
+        }
+    };
+    request.onerror = function () {
+        setError()
+    };
+}
+
+function setError() {
+    document.getElementById('result').innerHTML = "Something went wrong";
+    document.getElementById('result').style.color = "DarkRed";
 }
 
 function download(filename, text) {
