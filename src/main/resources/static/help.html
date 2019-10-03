@@ -1,8 +1,14 @@
 <html lang="pl">
 <meta charset="utf-8">
+<head>
+    <link rel="stylesheet" href="help.css">
+    <title></title>
+</head>
+<body>
 Aplikacja generuje plik kalendarza ical z pliku txt z harmonogramem.<br>
 Autor nie ponosi odpowiedzialności za błędy itp.<br>
-1. Skopiować z Wirtualnego Dziekanatu harmonogram z zakładki "Mój plan" (nie "Plany grup").  (zaznaczając myszką od pierwszego "Data Zajęć..." kończąc na ostatnim
+1. Skopiować z Wirtualnego Dziekanatu harmonogram z zakładki "Mój plan" (nie "Plany grup"). (zaznaczając myszką od
+pierwszego "Data Zajęć..." kończąc na ostatnim
 wierszu).<br>
 2. Zapisać do pliku txt (powinno zaczynać się np. "Data Zajęć: 2019-10-04 piątek", kończyć np. " (...)F Toronto
 Zaliczenie ocena Brak"<br>
@@ -10,7 +16,8 @@ Zaliczenie ocena Brak"<br>
 4. Przejść w konsoli do folderu gdzie zapisany jest plik txt z harmonogramem.<br>
 5. Wkleić uzupełniając nazwy plików, unikać spacji itp. w nazwach plików:<br>
 <code>
-    curl -X POST -H "Content-Type: text/plain" --data-binary "@<span style="color: #3d7fe2;">NAZWA_PLIKU_Z_HARMONOGRAMEM</span>.txt"
+    curl -X POST -H "Content-Type: text/plain" --data-binary "@<span
+        style="color: #3d7fe2;">NAZWA_PLIKU_Z_HARMONOGRAMEM</span>.txt"
     https://wsei-schedule.herokuapp.com/api/cal -o <span style="color: #3d7fe2;">NAZWA_PLIKU_GENEROWANEGO</span>.ical
     --ssl-no-revoke
 </code>
@@ -19,4 +26,14 @@ Zaliczenie ocena Brak"<br>
     jeżeli importujecie do kalendarza Google</span>, polecam stworzyć nowy
 kalendarz, nie importować do głównego.
 <br>
+Lub wklej tutaj:
+<br>
+
+<label>
+    <input type="text" id="editText" placeholder="Data Zajęć: 2019-10-04 piątek ...">
+</label>
+<br>
+<button type="button" onclick="createICal()" id="123">Generuj ical</button>
+</body>
+<script src="help.js"></script>
 </html>
