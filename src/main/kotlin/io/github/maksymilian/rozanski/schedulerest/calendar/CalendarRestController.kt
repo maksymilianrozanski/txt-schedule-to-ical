@@ -27,7 +27,7 @@ class CalendarRestController {
     fun getCalendar(@RequestBody string: String): ResponseEntity<Resource> {
         val stream: Stream<String> = string.lines().stream()
         val responseHeader = HttpHeaders()
-        responseHeader.set("Access-Control-Allow-Origin", "http://localhost:8080")
+        responseHeader.set("Access-Control-Allow-Origin", "https://wsei-schedule.herokuapp.com")
         val resource: ByteArrayResource
         try {
             resource = ByteArrayResource(generateICalSchedule(stream, calendar, clock).toByteArray())
