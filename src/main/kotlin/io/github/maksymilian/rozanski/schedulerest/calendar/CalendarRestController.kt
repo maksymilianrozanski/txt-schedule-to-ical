@@ -21,7 +21,7 @@ class CalendarRestController {
         return "Hello World!!"
     }
 
-    @CrossOrigin(origins = ["http://localhost:8080/"])
+    @CrossOrigin(origins = ["https://wsei-schedule.herokuapp.com"])
     @PostMapping("/cal")
     fun getCalendar(@RequestBody string: String): ResponseEntity<Resource> {
         val stream: Stream<String> = string.lines().stream()
