@@ -14,7 +14,7 @@ import java.util.stream.Stream
 class CalendarRestController {
 
     val calendar = GregorianCalendar()
-    val clock = Clock.systemUTC()
+    val clock: Clock = Clock.systemUTC()
 
     @GetMapping("/test")
     fun getHelloWorld(): String {
